@@ -2,7 +2,7 @@ package application.services
 
 import application.errors.{Done, ServiceError}
 import domain.model.entities.{Delivery, Drone, Order}
-import domain.services.ValidateDeliveryServices
+import domain.services.{DeliveryServices, ValidateDeliveryServices}
 import infrastructure.services.FileService
 
 object OderService {
@@ -12,11 +12,15 @@ object OderService {
 //    ( FIRST_ORDER to DRONE_QUANTITY ).map {}
 
     val droneFileNumber = 1
-    for {
+    val y = for {
       stringOrder <- newFileService.readFile( s"in${numberToFileNumber( droneFileNumber )}.txt")
       order <- stringOrderToOrder( stringOrder )
       _ <- newValidateDeliveryServices.validateDeliveries( order )
-    } yield Done
+      orderReport <- newDeliveryServices.doDeliveries( order )
+    } yield orderReport
+
+    y
+    Right( Done )
   }
 
   private def numberToFileNumber( droneFileNumber: Int ): String = {
@@ -30,6 +34,10 @@ object OderService {
 
   private def newValidateDeliveryServices: ValidateDeliveryServices = {
     new ValidateDeliveryServices()
+  }
+
+  private def newDeliveryServices: DeliveryServices = {
+    new DeliveryServices()
   }
 
   private def stringOrderToOrder( stringOrder: List[String] ): Either[ServiceError, Order] = {

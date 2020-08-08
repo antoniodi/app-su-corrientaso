@@ -7,12 +7,10 @@ import domain.model.entities.{Coordinate, Delivery, Drone, Order}
 class ValidateDeliveryServices {
 
   def validateDeliveries( order: Order ): Either[ServiceError, Done] = {
-    val x: Either[ServiceError, Done.type] = for {
+    for {
       _ <- validateMaxDeliveries( order.deliveries )
       _ <- validateMaxDistance( order.deliveries, order.drone )
     } yield Done
-
-    x
   }
 
   private[services] def validateMaxDeliveries( deliveries: List[Delivery] ): Either[ServiceError, Done] = {

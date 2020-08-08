@@ -16,5 +16,6 @@ object DomainConstants {
   val ROTATE_LEFT_NINETY_DEGREE = 'I'
   val ROTATE_RIGHT_NINETY_DEGREE = 'D'
 
+  val REPORT_TITLE = "== Reporte de entregas =="
 
 }
