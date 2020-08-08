@@ -1,4 +1,4 @@
-name := "app.su.corrientaso"
+name := "ms-delivery-su-corrientaso"
 
 version := "0.1"
 

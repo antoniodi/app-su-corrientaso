@@ -2,7 +2,7 @@ package domain.model.entities
 
 import application.errors.{Business, ServiceError}
 import domain.constants.DomainConstants.{FORWARD_STEP, INIT_DRONE_DIRECTION, INIT_DRONE_POSITION_X, INIT_DRONE_POSITION_Y, ROTATE_LEFT_NINETY_DEGREE, ROTATE_RIGHT_NINETY_DEGREE}
-import domain.model.types.{CardinalPointType, East, North, South, West}
+import domain.model.types.{East, North, South, West}
 import com.softwaremill.quicklens._
 
 final case class Drone( position: Position = Position( Coordinate( INIT_DRONE_POSITION_X, INIT_DRONE_POSITION_Y ), INIT_DRONE_DIRECTION ) ) {

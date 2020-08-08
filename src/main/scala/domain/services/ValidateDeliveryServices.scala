@@ -16,7 +16,7 @@ class ValidateDeliveryServices {
   }
 
   private[services] def validateMaxDeliveries( deliveries: List[Delivery] ): Either[ServiceError, Done] = {
-    if ( deliveries.length >= MAX_LUNCHES_PER_TRAVEL ) Left( ServiceError( Business, "The number of orders is too big" ) )
+    if ( deliveries.length > MAX_LUNCHES_PER_TRAVEL ) Left( ServiceError( Business, "The number of orders is too big" ) )
     else Right( Done )
   }
 

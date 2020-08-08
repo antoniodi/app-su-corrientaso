@@ -5,7 +5,7 @@ import domain.model.entities.{Delivery, Drone, Order}
 import domain.services.ValidateDeliveryServices
 import infrastructure.services.FileService
 
-class OderService {
+object OderService {
 
   def processOrders(): Either[ServiceError, Done] = {
 
@@ -19,20 +19,20 @@ class OderService {
     } yield Done
   }
 
-  def numberToFileNumber( droneFileNumber: Int ): String = {
+  private def numberToFileNumber( droneFileNumber: Int ): String = {
     val MAX_UNIT = 9
     if ( droneFileNumber <= MAX_UNIT ) s"0${droneFileNumber}" else droneFileNumber.toString
   }
 
-  def newFileService: FileService = {
+  private def newFileService: FileService = {
     new FileService()
   }
 
-  def newValidateDeliveryServices: ValidateDeliveryServices = {
+  private def newValidateDeliveryServices: ValidateDeliveryServices = {
     new ValidateDeliveryServices()
   }
 
-  def stringOrderToOrder( stringOrder: List[String] ): Either[ServiceError, Order] = {
+  private def stringOrderToOrder( stringOrder: List[String] ): Either[ServiceError, Order] = {
     Right( Order( stringOrder.map( Delivery ), Drone() ) )
   }
 
