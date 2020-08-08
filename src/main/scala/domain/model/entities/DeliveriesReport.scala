@@ -5,9 +5,9 @@ import domain.constants.DomainConstants.REPORT_TITLE
 case class DeliveriesReport( finalDronePositions: List[Position]) {
 
   def toReportString: List[String] = {
-    List( REPORT_TITLE ) ++
+    List( s"${REPORT_TITLE}\n\n" ) ++
       finalDronePositions.map( finalDronePosition =>
-        s"(${finalDronePosition.coordinate.x},${finalDronePosition.coordinate.y} dirección ${finalDronePosition.direction.toString}"
+        s"${finalDronePosition.coordinate.toString} dirección ${finalDronePosition.direction.description}\n\n"
       )
   }
 }

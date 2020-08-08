@@ -38,7 +38,7 @@ class ValidateDeliveryServices {
           case Right( droneInNewPosition ) =>
             if ( FORWARD_STEP == instruction ) {
               if ( getDistanceBetweenTwoPoints( Coordinate( INIT_DRONE_POSITION_X, INIT_DRONE_POSITION_Y), drone.position.coordinate ) > MAX_DELIVERY_DISTANCE )
-                Left(  ServiceError( Business, "Exceeded maximum distance of delivery" )  )
+                Left(  ServiceError( Business, s"Exceeded maximum distance of delivery ${MAX_DELIVERY_DISTANCE}. End position ${drone.position.coordinate.toString} ${drone.position.direction.description}" ) )
               else validateMaxDistance( instructions.drop( ONE_INSTRUCTION ), droneInNewPosition)
             } else validateMaxDistance( instructions.drop( ONE_INSTRUCTION ), droneInNewPosition)
           case error @ Left( _ ) => error
@@ -48,6 +48,7 @@ class ValidateDeliveryServices {
   }
 
   def getDistanceBetweenTwoPoints(initCoordinate: Coordinate, endCoordinate: Coordinate ): Double = {
-    Math.sqrt( Math.pow( Math.abs( endCoordinate.x - initCoordinate.x ), 2 ) + Math.pow( Math.abs( endCoordinate.y - initCoordinate.y ), 2 )  )
+    val EXPONENT_TWO = 2
+    Math.sqrt( Math.pow( Math.abs( endCoordinate.x - initCoordinate.x ), EXPONENT_TWO ) + Math.pow( Math.abs( endCoordinate.y - initCoordinate.y ), EXPONENT_TWO )  )
   }
 }

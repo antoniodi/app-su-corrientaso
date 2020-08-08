@@ -1,6 +1,6 @@
 package domain.services
 
-import application.errors.{ServiceError}
+import application.errors.ServiceError
 import domain.model.entities.{Delivery, Drone, Order, DeliveriesReport, Position}
 
 class DeliveryServices {
