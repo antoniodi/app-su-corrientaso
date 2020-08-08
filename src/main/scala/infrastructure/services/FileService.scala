@@ -1,13 +1,13 @@
 package infrastructure.services
 
+import application.errors.ServiceError
+
 class FileService {
 
-  def readFile(): List[String] = {
-    List( "AAAAIAA",
+  def readFile( fileName: String ): Either[ServiceError, List[String]] = {
+    Right( List( "AAAAIAA",
           "DDDAIAD",
-          "AAIADAD"
-
-    )
+          "AAIADAD" ) )
   }
 
 }

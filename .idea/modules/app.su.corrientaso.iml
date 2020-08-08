@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.id="app-su-corrientaso [file:/C:/Users/dell/Documents/Vida%20intelectual/procesos%20de%20seleccion/S4N/prueba%20de%20ingreso/app-su-corrientaso/]" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="SBT" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
-    <output url="file://$MODULE_DIR$/../../target/scala-2.13/classes" />
-    <output-test url="file://$MODULE_DIR$/../../target/scala-2.13/test-classes" />
+    <output url="file://$MODULE_DIR$/../../target/scala-2.12/classes" />
+    <output-test url="file://$MODULE_DIR$/../../target/scala-2.12/test-classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../..">
       <sourceFolder url="file://$MODULE_DIR$/../../src/main/scala" isTestSource="false" />
@@ -11,6 +11,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="sbt: org.scala-lang:scala-library:2.13.3:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.softwaremill.quicklens:quicklens_2.12:1.4.11:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.scala-lang:scala-library:2.12.12:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.scala-lang:scala-reflect:2.12.12:jar" level="project" />
   </component>
 </module>
