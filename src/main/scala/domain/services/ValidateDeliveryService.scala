@@ -4,7 +4,7 @@ import application.errors.{Business, Done, ServiceError}
 import domain.constants.DomainConstants.{FORWARD_STEP, INIT_DRONE_POSITION_X, INIT_DRONE_POSITION_Y, MAX_DELIVERY_DISTANCE, MAX_LUNCHES_PER_TRAVEL}
 import domain.model.entities.{Coordinate, Delivery, Drone, Order}
 
-class ValidateDeliveryService {
+trait ValidateDeliveryService {
 
   def validateDeliveries( order: Order ): Either[ServiceError, Done] = {
     for {
@@ -14,7 +14,7 @@ class ValidateDeliveryService {
   }
 
   private[services] def validateMaxDeliveries( deliveries: List[Delivery] ): Either[ServiceError, Done] = {
-    if ( deliveries.length > MAX_LUNCHES_PER_TRAVEL ) Left( ServiceError( Business, "The number of orders is too big" ) )
+    if ( deliveries.length > MAX_LUNCHES_PER_TRAVEL ) Left( ServiceError( Business, s"The number of deliveries exceeds the maximum allowed ${MAX_LUNCHES_PER_TRAVEL}" ) )
     else Right( Done )
   }
 
@@ -37,8 +37,9 @@ class ValidateDeliveryService {
         drone.doInstruction( instruction ) match {
           case Right( droneInNewPosition ) =>
             if ( FORWARD_STEP == instruction ) {
-              if ( getDistanceBetweenTwoPoints( Coordinate( INIT_DRONE_POSITION_X, INIT_DRONE_POSITION_Y), drone.position.coordinate ) > MAX_DELIVERY_DISTANCE )
-                Left(  ServiceError( Business, s"Exceeded maximum distance of delivery ${MAX_DELIVERY_DISTANCE}. End position ${drone.position.coordinate.toString} ${drone.position.direction.description}" ) )
+              val distanceFromInitPosition = getDistanceBetweenTwoPoints( Coordinate( INIT_DRONE_POSITION_X, INIT_DRONE_POSITION_Y), droneInNewPosition.position.coordinate )
+              if ( distanceFromInitPosition > MAX_DELIVERY_DISTANCE )
+                Left(  ServiceError( Business, s"Exceeded maximum distance of delivery ${MAX_DELIVERY_DISTANCE}. End position ${droneInNewPosition.position.coordinate.toString} ${droneInNewPosition.position.direction.description}" ) )
               else validateMaxDistance( instructions.drop( ONE_INSTRUCTION ), droneInNewPosition)
             } else validateMaxDistance( instructions.drop( ONE_INSTRUCTION ), droneInNewPosition)
           case error @ Left( _ ) => error
@@ -52,3 +53,5 @@ class ValidateDeliveryService {
     Math.sqrt( Math.pow( Math.abs( endCoordinate.x - initCoordinate.x ), EXPONENT_TWO ) + Math.pow( Math.abs( endCoordinate.y - initCoordinate.y ), EXPONENT_TWO )  )
   }
 }
+
+object ValidateDeliveryService extends ValidateDeliveryService

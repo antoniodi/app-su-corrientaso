@@ -6,6 +6,11 @@ object DeliveryFactory {
 
   val delivery: Delivery = Delivery( "AAAAIAA" )
 
+  val fourDeliveries = List( Delivery( "AAAAIAA" ),
+                             Delivery( "DDDAIAD" ),
+                             Delivery( "AAIADAD" ),
+                             Delivery( "AAIADAD" ) )
+
   def getDeliveries = List( Delivery( "AAAAIAA" ),
                             Delivery( "DDDAIAD" ),
                             Delivery( "AAIADAD" ) )

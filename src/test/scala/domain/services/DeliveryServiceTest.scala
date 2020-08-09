@@ -12,15 +12,15 @@ import org.mockito.Mockito.{doReturn, never, spy, verify}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
+class SpyDeliveryService extends DeliveryService
+
 class DeliveryServiceTest extends AnyWordSpec with Matchers {
-
-
 
   "Calling doDeliveries" when {
 
     "the order is correct" should {
       "return the deliveries report" in {
-        val spyDeliveryServices = spy( new DeliveryService() )
+        val spyDeliveryServices = spy( new SpyDeliveryService() )
         doReturn( Right( List( position ) ) ).when( spyDeliveryServices ).doDeliveries( getDeliveries, drone, Nil )
 
         val result = spyDeliveryServices.doDeliveries( order )
@@ -32,7 +32,7 @@ class DeliveryServiceTest extends AnyWordSpec with Matchers {
 
     "occur an error" should {
       "return the Error" in {
-        val spyDeliveryServices = spy( new DeliveryService() )
+        val spyDeliveryServices = spy( new SpyDeliveryService() )
         doReturn( Left( ServiceError( Business, "An error occurred" ) ) ).when( spyDeliveryServices ).doDeliveries( getDeliveries, drone, Nil )
 
         val result = spyDeliveryServices.doDeliveries( order )
@@ -47,7 +47,7 @@ class DeliveryServiceTest extends AnyWordSpec with Matchers {
 
     "there are at least one instruction" should {
       "do first instruction and call again doInstructions with the rest of instructions" in {
-        val spyDeliveryServices = spy( new DeliveryService() )
+        val spyDeliveryServices = spy( new SpyDeliveryService() )
         val spyDrone = spy( Drone() )
         val spyDroneWithInstruction = spy( Drone() )
         val instructions = "AAI"
@@ -67,7 +67,7 @@ class DeliveryServiceTest extends AnyWordSpec with Matchers {
 
     "doInstructions fail" should {
       "return error" in {
-        val spyDeliveryServices = spy( new DeliveryService() )
+        val spyDeliveryServices = spy( new SpyDeliveryService() )
         val spyDrone = spy( Drone() )
         val instructions = "AAI"
         val deliveries = getDeliveries( instructions )
@@ -83,7 +83,7 @@ class DeliveryServiceTest extends AnyWordSpec with Matchers {
 
     "there are not deliveries" should {
       "return current list of positions" in {
-        val spyDeliveryServices = spy( new DeliveryService() )
+        val spyDeliveryServices = spy( new SpyDeliveryService() )
         val spyDrone = spy( Drone() )
         val deliveries = Nil
         val expectedPositions = positions
@@ -101,7 +101,7 @@ class DeliveryServiceTest extends AnyWordSpec with Matchers {
         val defaultDrone = Drone()
         val expectedPositions = testCasePosition
 
-        val result =  new DeliveryService().doDeliveries( exampleDeliveries, defaultDrone )
+        val result =  new SpyDeliveryService().doDeliveries( exampleDeliveries, defaultDrone )
 
         result shouldEqual Right( expectedPositions )
       }

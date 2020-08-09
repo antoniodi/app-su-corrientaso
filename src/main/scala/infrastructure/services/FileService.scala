@@ -1,6 +1,6 @@
 package infrastructure.services
 
-import java.io.{BufferedWriter, File, FileOutputStream, FileWriter, OutputStreamWriter}
+import java.io.{BufferedWriter, File, FileWriter}
 
 import application.errors.{Done, ServiceError, Technical}
 

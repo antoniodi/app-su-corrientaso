@@ -7,7 +7,7 @@ import domain.model.entities.{Delivery, Drone, Order}
 import domain.services.{DeliveryService, ValidateDeliveryService}
 import infrastructure.services.FileService
 
-object OderService {
+trait OderService {
 
   def processOrders(): List[Either[ServiceError, Done]] = {
     ( FIRST_ORDER to DRONE_QUANTITY ).map(orderNumber => {
@@ -22,8 +22,8 @@ object OderService {
     for {
       stringOrder <- newFileService.readFile( fileInSource )
       order <- stringOrderToOrder(stringOrder)
-      _ <- newValidateDeliveryServices.validateDeliveries(order)
-      orderReport <- newDeliveryServices.doDeliveries(order)
+      _ <- getValidateDeliveryServices.validateDeliveries(order)
+      orderReport <- getDeliveryServices.doDeliveries(order)
       _ <- newFileService.writeFile( fileOutSource, orderReport.toReportString )
     } yield Done
   }
@@ -37,12 +37,12 @@ object OderService {
     new FileService()
   }
 
-  private def newValidateDeliveryServices: ValidateDeliveryService = {
-    new ValidateDeliveryService()
+  private def getValidateDeliveryServices: ValidateDeliveryService = {
+    ValidateDeliveryService
   }
 
-  private def newDeliveryServices: DeliveryService = {
-    new DeliveryService()
+  private def getDeliveryServices: DeliveryService = {
+    DeliveryService
   }
 
   private def stringOrderToOrder( stringOrder: List[String] ): Either[ServiceError, Order] = {
@@ -50,3 +50,5 @@ object OderService {
   }
 
 }
+
+object OderService extends OderService

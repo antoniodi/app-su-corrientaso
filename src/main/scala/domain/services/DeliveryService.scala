@@ -3,7 +3,7 @@ package domain.services
 import application.errors.ServiceError
 import domain.model.entities.{Delivery, Drone, Order, DeliveriesReport, Position}
 
-class DeliveryService {
+trait DeliveryService {
 
   def doDeliveries(order: Order ): Either[ServiceError, DeliveriesReport] = {
 
@@ -23,7 +23,7 @@ class DeliveryService {
       case None => Right( deliveriesPositions )
     }
   }
-
-
-
 }
+
+object DeliveryService extends DeliveryService
+
