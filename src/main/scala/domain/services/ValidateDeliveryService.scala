@@ -30,7 +30,7 @@ class ValidateDeliveryService {
     }
   }
 
-  def validateMaxDistance( instructions: String, drone: Drone ): Either[ServiceError, Drone] = {
+  private[services] def validateMaxDistance( instructions: String, drone: Drone ): Either[ServiceError, Drone] = {
     val ONE_INSTRUCTION = 1
     instructions.headOption match {
       case Some( instruction ) =>
@@ -47,7 +47,7 @@ class ValidateDeliveryService {
     }
   }
 
-  def getDistanceBetweenTwoPoints(initCoordinate: Coordinate, endCoordinate: Coordinate ): Double = {
+  private[services] def getDistanceBetweenTwoPoints( initCoordinate: Coordinate, endCoordinate: Coordinate ): Double = {
     val EXPONENT_TWO = 2
     Math.sqrt( Math.pow( Math.abs( endCoordinate.x - initCoordinate.x ), EXPONENT_TWO ) + Math.pow( Math.abs( endCoordinate.y - initCoordinate.y ), EXPONENT_TWO )  )
   }

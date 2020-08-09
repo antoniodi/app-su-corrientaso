@@ -6,7 +6,7 @@ import factories.DeliveriesReportFactory.deliveriesReport
 import factories.DeliveryFactory.getDeliveries
 import factories.DroneFactory.drone
 import factories.OrderFactory.order
-import factories.PositionFactory.{position, positions}
+import factories.PositionFactory.{position, positions, testCasePosition}
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{doReturn, never, spy, verify}
 import org.scalatest.matchers.should.Matchers
@@ -92,6 +92,18 @@ class DeliveryServiceTest extends AnyWordSpec with Matchers {
 
         result shouldEqual Right( expectedPositions )
         verify( spyDrone, never ).doInstructions( any[String] )
+      }
+    }
+
+    "example order case are delivery (integration test)"  should {
+      "return correct list of positions" in {
+        val exampleDeliveries = getDeliveries
+        val defaultDrone = Drone()
+        val expectedPositions = testCasePosition
+
+        val result =  new DeliveryService().doDeliveries( exampleDeliveries, defaultDrone )
+
+        result shouldEqual Right( expectedPositions )
       }
     }
   }
