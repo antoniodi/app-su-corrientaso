@@ -6,7 +6,7 @@ import application.errors.{Done, ServiceError, Technical}
 
 import scala.io.{BufferedSource, Source}
 
-class FileService {
+trait FileService {
 
   def readFile( fileSource: String ): Either[ServiceError, List[String]] = {
     try {
@@ -32,3 +32,5 @@ class FileService {
   }
 
 }
+
+object FileService extends FileService

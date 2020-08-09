@@ -20,11 +20,11 @@ trait OderService {
     val fileInSource = s"${FILES_TO_READ_SOURCE}/in${numberToFileNumber(orderNumber)}.txt"
     val fileOutSource = s"${FILES_TO_WRITE_SOURCE}/out${numberToFileNumber(orderNumber)}.txt"
     for {
-      stringOrder <- newFileService.readFile( fileInSource )
+      stringOrder <- getFileService.readFile( fileInSource )
       order <- stringOrderToOrder(stringOrder)
       _ <- getValidateDeliveryServices.validateDeliveries(order)
       orderReport <- getDeliveryServices.doDeliveries(order)
-      _ <- newFileService.writeFile( fileOutSource, orderReport.toReportString )
+      _ <- getFileService.writeFile( fileOutSource, orderReport.toReportString )
     } yield Done
   }
 
@@ -33,19 +33,19 @@ trait OderService {
     if ( droneFileNumber <= MAX_UNIT ) s"0${droneFileNumber}" else droneFileNumber.toString
   }
 
-  private def newFileService: FileService = {
-    new FileService()
+  private[services] def getFileService: FileService = {
+    FileService
   }
 
-  private def getValidateDeliveryServices: ValidateDeliveryService = {
+  private[services] def getValidateDeliveryServices: ValidateDeliveryService = {
     ValidateDeliveryService
   }
 
-  private def getDeliveryServices: DeliveryService = {
+  private[services] def getDeliveryServices: DeliveryService = {
     DeliveryService
   }
 
-  private def stringOrderToOrder( stringOrder: List[String] ): Either[ServiceError, Order] = {
+  private[services] def stringOrderToOrder( stringOrder: List[String] ): Either[ServiceError, Order] = {
     Right( Order( stringOrder.map( Delivery ), Drone() ) )
   }
 
