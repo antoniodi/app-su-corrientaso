@@ -1,15 +1,26 @@
 package domain.services
 
-import org.mockito.Mockito
-import org.scalatest.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
-class DeliveryServicesTest extends Mockito with Matchers {
+class DeliveryServicesTest extends AnyWordSpec with Matchers {
 
-//  "Train ice724" should {
-//    "Train ice724" {
-//      when
-//    }
+//  "Validate deliveries" when {
 //
+//
+//
+//  }
+//
+//
+//  "Calling AreaUnderCurve" should {
+//    "" when {
+//      "return the value of area" in {
+//
+//
+//
+//        value shouldEqual 2423600.1887
+//      }
+//    }
 //  }
 
 
