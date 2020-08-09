@@ -4,7 +4,7 @@ import application.constants.ApplicationConstants.{FILES_TO_READ_SOURCE, FILES_T
 import application.errors.{Done, ServiceError}
 import domain.constants.DomainConstants.DRONE_QUANTITY
 import domain.model.entities.{Delivery, Drone, Order}
-import domain.services.{DeliveryServices, ValidateDeliveryServices}
+import domain.services.{DeliveryService, ValidateDeliveryService}
 import infrastructure.services.FileService
 
 object OderService {
@@ -37,12 +37,12 @@ object OderService {
     new FileService()
   }
 
-  private def newValidateDeliveryServices: ValidateDeliveryServices = {
-    new ValidateDeliveryServices()
+  private def newValidateDeliveryServices: ValidateDeliveryService = {
+    new ValidateDeliveryService()
   }
 
-  private def newDeliveryServices: DeliveryServices = {
-    new DeliveryServices()
+  private def newDeliveryServices: DeliveryService = {
+    new DeliveryService()
   }
 
   private def stringOrderToOrder( stringOrder: List[String] ): Either[ServiceError, Order] = {

@@ -4,7 +4,7 @@ import application.errors.{Business, Done, ServiceError}
 import domain.constants.DomainConstants.{FORWARD_STEP, INIT_DRONE_POSITION_X, INIT_DRONE_POSITION_Y, MAX_DELIVERY_DISTANCE, MAX_LUNCHES_PER_TRAVEL}
 import domain.model.entities.{Coordinate, Delivery, Drone, Order}
 
-class ValidateDeliveryServices {
+class ValidateDeliveryService {
 
   def validateDeliveries( order: Order ): Either[ServiceError, Done] = {
     for {

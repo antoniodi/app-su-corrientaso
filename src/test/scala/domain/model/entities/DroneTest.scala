@@ -146,7 +146,6 @@ class DroneTest extends AnyWordSpec with Matchers {
 
         result shouldEqual expectedError
         verify( spyDrone ).doInstruction( firstInstruction )
-        verify( spyDrone, never ).doInstructions( any[String] )
       }
     }
 
@@ -159,7 +158,6 @@ class DroneTest extends AnyWordSpec with Matchers {
 
         result shouldEqual Right( spyDrone )
         verify( spyDrone, never ).doInstruction( any[Char] )
-        verify( spyDrone, never ).doInstructions( any[String] )
       }
     }
   }
